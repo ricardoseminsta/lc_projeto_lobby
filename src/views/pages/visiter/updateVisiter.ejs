@@ -1,0 +1,37 @@
+<%- include('../partials/head.ejs') %>
+    <%- include('visiterHeader.ejs') %>
+        <div class="container col-4">
+            <h1 class="text-center">Edição de Visitante</h1>
+            <p>Analise cuidadosamente os campos pressione o botão Editar</p>
+            <form method="post" action="/updatevisiter">
+              <div class="form-outline mb-4">
+                <input type="hidden" name="id" id="name" class="form-control"  placeholder="Digite o nome do visitante" value="<%= visiter.id%>"/>
+            </div>
+              <div class="form-outline mb-4">
+                  <input type="text" name="name" id="name" class="form-control"  placeholder="Digite o nome do visitante" value="<%= visiter.name%>"/>
+                  <label class="form-label" for="name">Nome</label>
+              </div>
+
+              <div class="form-outline mb-4">
+                  <input type="text" name="cpf" id="cpf" class="form-control" maxlength="11" placeholder="Digite o CPF do visitante" value="<%= visiter.cpf%>"/>
+                  <label class="form-label" for="cpf">CPF (somente numeros)</label>
+              </div>
+
+              <div class="form-outline mb-4">
+                  <input type="email" name="email" id="email" class="form-control"  placeholder="Digite o Email do visitante" value="<%= visiter.email%>"/>
+                  <label class="form-label" for="email">Email</label>
+              </div>
+
+              <div class="form-outline mb-4">
+                  <input type="date" name="bdate" id="bdate" class="form-control" value="<%= visiter.bdate%>"/>
+                  <label class="form-label" for="bdate">Data de nascimento</label>
+              </div>
+
+
+              <!-- Submit button -->
+              <button type="submit" class="btn btn-primary btn-block mb-4">Editar</button>
+
+
+          </form>
+        </div>
+        <%- include('../partials/footer.ejs') %>
