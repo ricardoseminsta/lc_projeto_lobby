@@ -11,46 +11,45 @@ export const newDoorman = (req: Request, res: Response) => {
 
 export const postDoorman = async (req: Request, res: Response) => {
     let name: string = req.body.name as string;
-    let cpf: string  = req.body.cpf as string;
-    let email: string = req.body.email as string;
-    let bdate: Date = req.body.bdate as Date;
+    let turn = req.body.turn;
+    let active = req.body.active;
+    active === undefined ? active = false : active = true;
     
+    
+    const newDoorman = Doorman.build({name, turn, active});
+        await newDoorman.save();
 
-    if(email) {
-        const newVisiter = Doorman.build({name, cpf, email, bdate});
-        console.log(newVisiter);
-        await newVisiter.save();
-        
-    }
-   
-    res.redirect('/visiter/list')
+    res.redirect('/doorman/list')
 }
 
 export const listDoorman = async (req: Request, res: Response) => {
-    const list = await Doorman.findAll();    
-    res.render('pages/visiter/listVisiter', {list})
+    const list = await Doorman.findAll({ order: ['id'] });    
+    res.render('pages/doorman/listDoorman', {list})
 }
 
 export const doorman = async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id);
-    const visiter = await Doorman.findByPk(id);
-    res.render('pages/visiter/updateVisiter', {visiter})
+    const doorman = await Doorman.findByPk(id);
+    res.render('pages/doorman/updateDoorman', {doorman})
 }
 
 export const updateDoorman = async (req: Request, res: Response) => {
-    let id: number = parseInt(req.body.id);
+    let id = parseInt(req.body.id);
     let name: string = req.body.name as string;
-    let cpf: string  = req.body.cpf as string;
+    let turn = req.body.turn;
+    let active = req.body.active;
+    active === undefined ? active = false : active = true;
     
-    const visiter = await Doorman.findByPk(id);
-
-    if(visiter){
-        visiter.id = id;
-        visiter.name = name;
-        visiter.cpf = cpf;
-        await visiter.save();
+    
+    const doorman = await Doorman.findByPk(id);
+    if(doorman) {
+        doorman.id = id;
+        doorman.name = name;
+        doorman.turn = turn;
+        doorman.active = active;
+        await doorman.save();
     }
-    res.redirect('/visiter/list')
+    res.redirect('/doorman/list')
 }
 
 export const deleteDoorman = async (req: Request, res: Response) => {
@@ -58,6 +57,6 @@ export const deleteDoorman = async (req: Request, res: Response) => {
     console.log("ID", id);
     
     await Doorman.destroy({  where: { id }})
-    res.redirect('/visiter/list')
+    res.redirect('/doorman/list')
 }
 
