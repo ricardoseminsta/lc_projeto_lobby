@@ -1,0 +1,36 @@
+<%- include('../partials/head.ejs') %>
+    <%- include('visitHeader.ejs') %>
+        <div class="container col-8 text-center">
+            <h1>Listagem de visitas Encerradas</h1>
+            <% if(list.length === 0){ %>
+                <h2>Não existem Visitas enceradas</h2>
+            
+             <% } else { %>
+                <div class="container-fluid">
+                    <table class="table table-striped">
+                      <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Visitante</th>
+                        <th scope="col">Portaria</th>
+                        <th scope="col">Chegada</th>
+                        <th scope="col">Saída</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                    <% for (var i = 0; i < list.length; i++) { %>
+                      <tr class="align-middle">
+                        <td><%= i + 1 %></td>
+                        <td><%= list[i].visiterId %></td>
+                        <td><%= list[i].doormanId %></td>
+                        <td><%= visitData[i] %></td>
+                        <td><%= closed[i] %></td>
+                      </tr>
+                    <% } %>
+                      </tbody>
+                    </table>
+                    </div>
+              <% } %>
+          
+        </div>
+        <%- include('../partials/footer.ejs') %>

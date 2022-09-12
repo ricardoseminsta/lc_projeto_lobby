@@ -1,0 +1,32 @@
+<%- include('../partials/head.ejs') %>
+    <%- include('visitHeader.ejs') %>
+        <div class="container col-4">
+            <h1 class="text-center">Edição de Visita</h1>
+            <p>Analise cuidadosamente os campos pressione o botão Editar</p>
+            <form method="post" action="/updatevisit">
+                <div class="form-outline mb-4">
+                    <input type="hidden" name="id" id="name" class="form-control"
+                        placeholder="Digite o nome do visitante" value="<%= visit.id %>" />
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="text" name="visiterId" id="visiterId" class="form-control"
+                        value="<%= visit.visiterId %>" />
+                    <label class="form-label" for="visiterId">Visitante</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <input type="text" name="doormanId" id="doormanId" class="form-control"
+                        value="<%= visit.doormanId %>" />
+                    <label class="form-label" for="doormanId">Funcionario da portaria</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <input type="text" name="arrived" id="arrived" class="form-control" value="<%= formatedDate %>" disabled/>
+                    <label class="form-label" for="email">Hora de Chegada</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block mb-4">Editar</button>
+
+            </form>
+        </div>
+        <%- include('../partials/footer.ejs') %>

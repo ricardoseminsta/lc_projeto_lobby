@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import visiterRoutes from './routes/visiterRoutes';
 import doormanRoutes from './routes/doormanRoutes';
+import visitRoutes from './routes/visitRoutes';
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ server.get('/ping', (req: Request, res: Response) => res.json({ pong: true }));
 
 server.use(visiterRoutes);
 server.use(doormanRoutes);
+server.use(visitRoutes);
 
 server.use((req: Request, res: Response) => {
     res.status(404);

@@ -32,4 +32,4 @@ export const Doorman = sequelize.define<DoormanInstance>('Doorman', {
     tableName: 'doorman',
 });
 
-//Doorman.sync({ alter: true });
+// Doorman.sync({ force: true });

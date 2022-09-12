@@ -1,0 +1,42 @@
+<%- include('../partials/head.ejs') %>
+    <%- include('visitHeader.ejs') %>
+        <div class="container col-4">
+            <h1 class="pb-3 text-center">Cadastro de Visita</h1>
+            <form method="post" action="/postvisit" id="formVisit">
+                <div class="form-outline mb-4">
+                    <select class="form-select" aria-label="Default select example" name="visiterId" id="visiterId">
+                        <option selected>Clique para abiri a lista de visitantes</option>
+                        <% for (var i = 0; i < visiters.length; i++) { %>
+                        <option value="<%= visiters[i].id%>"><%= visiters[i].name%></option>
+                        <% } %>
+                      </select>
+                    <label class="form-label" for="visiterId">Nome do Visitante</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <select class="form-select" aria-label="Default select example" name="doormanId" id="doormanId">
+                        <option selected>Clique para escolher o funcionario da portaria</option>
+                        <% for (var i = 0; i < doormans.length; i++) { %>
+                        <option value="<%= doormans[i].id%>"><%= doormans[i].name%></option>
+                        <% } %>
+                      </select>
+                    <label class="form-label" for="doormanId">Nome do funcionário</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <input type="email" name="arrived" id="arrived" class="form-control"  placeholder="Hora de chegada" disabled/>
+                    <label class="form-label" for="arrived">Hora de Chegada</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <input type="email" name="exit" id="exit" class="form-control"  placeholder="Hora de saída" disabled/>
+                    <label class="form-label" for="exit">Hora de Saída</label>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block mb-4" id="visitSub">Cadastrar</button>
+
+
+            </form>
+        </div>
+        <%- include('../partials/footer.ejs') %>

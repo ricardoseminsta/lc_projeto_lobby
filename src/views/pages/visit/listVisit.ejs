@@ -1,0 +1,43 @@
+<%- include('../partials/head.ejs') %>
+    <%- include('visitHeader.ejs') %>
+        <div class="container col-8 text-center">
+            <h1>Listagem de visitas</h1>
+            <% if(list.length === 0){ %>
+                <h2>Não existem Visitas cadastradas</h2>
+            
+             <% } else { %>
+                <div class="container-fluid">
+                    <table class="table table-striped">
+                      <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Visitante</th>
+                        <th scope="col">Portaria</th>
+                        <th scope="col">Chegada</th>
+                        <th scope="col">Saída</th>
+                        <th scope="col">Ações</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                    <% for (var i = 0; i < list.length; i++) { %>
+                      <tr class="align-middle">
+                        <td><%= i + 1 %></td>
+                        <td><%= list[i].visiterId %></td>
+                        <td><%= list[i].doormanId %></td>
+                        <td><%= visitData[i] %></td>
+                        <td>Visita em Andamento</td>
+                        <td>
+                            <div class="d-flex justify-content-center">
+                            <a href="/visit/update/<%= list[i].id %>" class="btn btn-primary d-inline mx-2">Editar</a>
+                            <a href="/visit/finish/<%= list[i].id %>" class="btn btn-danger d-inline">Finalizar</a>
+                            </div>
+                        </td>
+                      </tr>
+                    <% } %>
+                      </tbody>
+                    </table>
+                    </div>
+              <% } %>
+          
+        </div>
+        <%- include('../partials/footer.ejs') %>
