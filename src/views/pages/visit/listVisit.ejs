@@ -1,13 +1,13 @@
 <%- include('../partials/head.ejs') %>
     <%- include('visitHeader.ejs') %>
-        <div class="container col-8 text-center">
+        <div class="container col-12 col-xl-8 text-center">
             <h1>Listagem de visitas</h1>
             <% if(list.length === 0){ %>
                 <h2>Não existem Visitas cadastradas</h2>
             
              <% } else { %>
-                <div class="container-fluid">
-                    <table class="table table-striped">
+                <div class="">
+                    <table class="table table-striped ">
                       <thead>
                       <tr>
                         <th scope="col">#</th>
