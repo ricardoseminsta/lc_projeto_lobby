@@ -1,0 +1,30 @@
+<%- include('../partials/head.ejs') %>
+    <%- include('userHeader.ejs') %>
+        <div class="container col-12 col-xl-8 text-center">
+            <h1>Listagem usuarios</h1>
+            <% if(list.length === 0){ %>
+                <h2>Não existem Visitas cadastradas</h2>
+            
+             <% } else { %>
+                <div class="">
+                    <table class="table table-striped ">
+                      <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Visitante</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                    <% for (var i = 0; i < list.length; i++) { %>
+                      <tr class="align-middle">
+                        <td><%= list[i].id %></td>
+                        <td><%= list[i].email %></td>
+                      </tr>
+                    <% } %>
+                      </tbody>
+                    </table>
+                    </div>
+              <% } %>
+          
+        </div>
+        <%- include('../partials/footer.ejs') %>
