@@ -1,5 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
-import { sequelize } from '../instances/pg';
+// import { sequelize } from '../instances/pg';
+import { sequelize } from '../instances/mysql';
 
 export interface VisiterInstance extends Model {
     id: number;

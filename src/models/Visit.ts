@@ -1,5 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
-import { sequelize } from '../instances/pg';
+// import { sequelize } from '../instances/pg';
+import { sequelize } from '../instances/mysql';
 
 import { Visiter, VisiterInstance } from './Visiter';
 import { Doorman, DoormanInstance } from './Doorman';
