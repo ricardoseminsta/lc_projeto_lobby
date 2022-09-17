@@ -1,9 +1,10 @@
 import { Model, DataTypes } from 'sequelize';
-// import { sequelize } from '../instances/pg';
-import { sequelize } from '../instances/mysql';
+import { sequelize } from '../instances/pg';
+// import { sequelize } from '../instances/mysql';
 
 import { Visiter, VisiterInstance } from './Visiter';
 import { Doorman, DoormanInstance } from './Doorman';
+import { visiter } from '../controllers/visiterController';
 
 export interface VisitInstance extends Model {
     id: number;
@@ -19,12 +20,6 @@ export const Visit = sequelize.define<VisitInstance>('Visit', {
         autoIncrement: true,
         type: DataTypes.INTEGER
     },
-    visiterId: {
-        type: DataTypes.INTEGER,
-    },
-    doormanId: {
-        type: DataTypes.INTEGER,
-    },
     arrived: {
         type: DataTypes.DATE
     },
@@ -36,4 +31,15 @@ export const Visit = sequelize.define<VisitInstance>('Visit', {
     timestamps: false
 });
 
-// Visit.sync({ force: true })
+Visiter.hasMany(Visit, {
+    foreignKey: 'id',
+});
+
+Visit.belongsTo(Visiter);
+
+Doorman.hasMany(Visit, {
+    foreignKey: 'id',
+})
+Visit.belongsTo(Doorman);
+
+Visit.sync({ force: true })

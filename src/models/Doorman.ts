@@ -1,6 +1,7 @@
 import { Model, DataTypes } from 'sequelize';
-// import { sequelize } from '../instances/pg';
-import { sequelize } from '../instances/mysql';
+import { sequelize } from '../instances/pg';
+import { Visit } from './Visit';
+// import { sequelize } from '../instances/mysql';
 
 export interface DoormanInstance extends Model {
     id: number;
@@ -33,4 +34,6 @@ export const Doorman = sequelize.define<DoormanInstance>('Doorman', {
     tableName: 'doorman',
 });
 
-// Doorman.sync({ force: true });
+
+
+Doorman.sync({ force: true });

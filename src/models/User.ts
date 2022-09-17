@@ -1,6 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
-// import { sequelize } from '../instances/pg';
-import { sequelize } from '../instances/mysql';
+import { sequelize } from '../instances/pg';
+// import { sequelize } from '../instances/mysql';
 
 export interface UserInstance extends Model {
     id: number;
@@ -26,4 +26,4 @@ export const User = sequelize.define<UserInstance>('User', {
     timestamps: false
 });
 
-// User.sync({ force: true });
+User.sync({ force: true });
