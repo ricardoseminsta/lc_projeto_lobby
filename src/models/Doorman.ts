@@ -7,7 +7,7 @@ export interface DoormanInstance extends Model {
     id: number;
     name: string;
     cpf: string;
-    turn: "manhã/Ttarde" | "tarde/noite";
+    turn: string;
     active: boolean;
 }
 

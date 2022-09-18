@@ -21,8 +21,8 @@
                     <% for (var i = 0; i < list.length; i++) { %>
                       <tr class="align-middle">
                         <td><%= i + 1 %></td>
-                        <td><%= list[i].VisiterId %></td>
-                        <td><%= list[i].DoormanId %></td>
+                        <td><%= list[i].Visiter.name %></td>
+                        <td><%= list[i].Doorman.name %></td>
                         <td><%= visitData[i] %></td>
                         <td><%= closed[i] %></td>
                       </tr>

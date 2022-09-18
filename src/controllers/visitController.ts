@@ -54,13 +54,7 @@ export const postVisit = async (req: Request, res: Response) => {
 }
 
 export const listVisit = async (req: Request, res: Response) => {
-    // const doormans = await Doorman.findAll();
-    // const visiters = await Visiter.findAll();
-    /*const list = await Visit.findAll({
-        where: { exit: { [Op.is]: null }},
-        include: [Visiter, Doorman],
-        required: true
-    });*/
+//inclui models Viviter e Doorman na pesquisa, para retorno de chave primária nome equivalente
     const list = await Visit.findAll({
         include: [{
            model: Visiter,
@@ -71,8 +65,7 @@ export const listVisit = async (req: Request, res: Response) => {
             required: true
         }], 
         where: { exit: { [Op.is]: null }}
-    });
-    console.log(list);
+    }) as any;
     
     let visitData = [];
     for(let i in list) {
@@ -133,7 +126,19 @@ export const finishVisit = async (req: Request, res: Response) => {
 export const closedVisit = async (req: Request, res: Response) => {
     // const doormans = await Doorman.findAll();
     // const visiters = await Visiter.findAll();
-    const list = await Visit.findAll({ where: { exit: { [Op.not]: null }}});
+    //const list = await Visit.findAll({where:{ exit: { [Op.not]: null }}});
+    const list = await Visit.findAll({
+        include: [{
+           model: Visiter,
+           required: true,
+
+        }, {
+            model: Doorman,
+            required: true
+        }], 
+        where: { exit: { [Op.not]: null }}
+    }) as any;
+
     let visitData = [];
     let closed = [];
     for(let i in list) {

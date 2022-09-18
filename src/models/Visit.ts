@@ -31,19 +31,17 @@ export const Visit = sequelize.define<VisitInstance>('Visit', {
     timestamps: false
 });
 
-Visiter.hasMany(Visit, {
-    foreignKey: 'id',
+Visiter.hasMany(Visit);
+
+Visit.belongsTo(Visiter, {
     onDelete: 'NO ACTION',
     onUpdate: 'NO ACTION'
 });
 
-Visit.belongsTo(Visiter);
-
-Doorman.hasMany(Visit, {
-    foreignKey: 'id',
+Doorman.hasMany(Visit)
+Visit.belongsTo(Doorman, {
     onDelete: 'NO ACTION',
     onUpdate: 'NO ACTION'
-})
-Visit.belongsTo(Doorman);
+});
 
 // Visit.sync({ force: true })
