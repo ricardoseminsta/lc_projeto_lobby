@@ -36,4 +36,4 @@ export const Doorman = sequelize.define<DoormanInstance>('Doorman', {
 
 
 
-Doorman.sync({ force: true });
+// Doorman.sync({ force: true });

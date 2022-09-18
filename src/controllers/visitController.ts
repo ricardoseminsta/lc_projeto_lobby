@@ -39,16 +39,16 @@ export const newVisit = async (req: Request, res: Response) => {
 
 export const postVisit = async (req: Request, res: Response) => {
 
-    let visiterId: number = parseInt(req.body.visiterId);
-    let doormanId: number = parseInt(req.body.doormanId);
+    let VisiterId: number = parseInt(req.body.visiterId);
+    let DoormanId: number = parseInt(req.body.doormanId);
     let arrived = new Date();
 
     //let formatedDate = dateFormatter(arrived);
 
-    //const newVisit = {  idVisiter, idDoorman, arrived }
-    const newVisit = await Visit.build({  visiterId, doormanId, arrived });
-    //console.log(newVisit);
-    newVisit.save();
+    // const newVisit = {  VisiterId, DoormanId, arrived }
+    const newVisit = await Visit.create({VisiterId, DoormanId, arrived},{ include: [Visiter, Doorman] });
+    console.log(newVisit);
+    
     
     res.redirect('/visit/list')
 }
@@ -56,13 +56,27 @@ export const postVisit = async (req: Request, res: Response) => {
 export const listVisit = async (req: Request, res: Response) => {
     // const doormans = await Doorman.findAll();
     // const visiters = await Visiter.findAll();
-    const list = await Visit.findAll({ where: { exit: { [Op.is]: null }}});
+    /*const list = await Visit.findAll({
+        where: { exit: { [Op.is]: null }},
+        include: [Visiter, Doorman],
+        required: true
+    });*/
+    const list = await Visit.findAll({
+        include: [{
+           model: Visiter,
+           required: true,
 
+        }, {
+            model: Doorman,
+            required: true
+        }], 
+        where: { exit: { [Op.is]: null }}
+    });
+    console.log(list);
+    
     let visitData = [];
     for(let i in list) {
-
         visitData.push(dateFormatter(list[i].arrived));
-        
     }
 
     res.render('pages/visit/listVisit', {list, visitData })
@@ -80,15 +94,15 @@ export const visit = async (req: Request, res: Response) => {
 
 export const updateVisit = async (req: Request, res: Response) => {
     let id: number = parseInt(req.body.id);
-    let visiterId: number = parseInt(req.body.visiterId);
-    let doormanId: number = parseInt(req.body.doormanId);
+    let VisiterId: number = parseInt(req.body.visiterId);
+    let DoormanId: number = parseInt(req.body.doormanId);
     
     const visiter = await Visit.findByPk(id);
 
     if(visiter){
         visiter.id = id;
-        visiter.visiterId = visiterId;
-        visiter.doormanId = doormanId;
+        visiter.VisiterId = VisiterId;
+        visiter.DoormanId = DoormanId;
         await visiter.save();
     }
     res.redirect('/visit/list')
@@ -106,8 +120,7 @@ export const finish = async (req: Request, res: Response) => {
 export const finishVisit = async (req: Request, res: Response) => {
     let id: number = parseInt(req.body.id);
     let exit = req.body.exit;
-    console.log(id, exit);
-    
+
     const visiter = await Visit.findByPk(id);
     if(visiter) {
         visiter.exit = exit;

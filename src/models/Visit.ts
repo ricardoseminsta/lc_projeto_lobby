@@ -2,14 +2,14 @@ import { Model, DataTypes } from 'sequelize';
 import { sequelize } from '../instances/pg';
 // import { sequelize } from '../instances/mysql';
 
-import { Visiter, VisiterInstance } from './Visiter';
-import { Doorman, DoormanInstance } from './Doorman';
-import { visiter } from '../controllers/visiterController';
+import { Visiter } from './Visiter';
+import { Doorman } from './Doorman';
+
 
 export interface VisitInstance extends Model {
     id: number;
-    visiterId: number;
-    doormanId: number;
+    VisiterId: number;
+    DoormanId: number;
     arrived: Date;
     exit: Date;
 }
@@ -33,13 +33,17 @@ export const Visit = sequelize.define<VisitInstance>('Visit', {
 
 Visiter.hasMany(Visit, {
     foreignKey: 'id',
+    onDelete: 'NO ACTION',
+    onUpdate: 'NO ACTION'
 });
 
 Visit.belongsTo(Visiter);
 
 Doorman.hasMany(Visit, {
     foreignKey: 'id',
+    onDelete: 'NO ACTION',
+    onUpdate: 'NO ACTION'
 })
 Visit.belongsTo(Doorman);
 
-Visit.sync({ force: true })
+// Visit.sync({ force: true })

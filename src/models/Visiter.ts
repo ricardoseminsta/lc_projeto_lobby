@@ -37,4 +37,4 @@ export const Visiter = sequelize.define<VisiterInstance>('Visiter', {
     timestamps: false
 });
 
-Visiter.sync({ force: true });
+// Visiter.sync({ force: true });
