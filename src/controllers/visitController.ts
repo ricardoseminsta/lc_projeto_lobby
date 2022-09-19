@@ -90,7 +90,7 @@ export const updateVisit = async (req: Request, res: Response) => {
     let VisiterId: number = parseInt(req.body.visiterId);
     let DoormanId: number = parseInt(req.body.doormanId);
     
-    const visiter = await Visit.findByPk(id);
+    const visiter = await Visit.findByPk(id) as any;
 
     if(visiter){
         visiter.id = id;

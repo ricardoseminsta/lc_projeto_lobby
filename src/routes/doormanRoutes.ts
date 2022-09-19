@@ -1,13 +1,13 @@
 import { Router } from 'express';
-
+import { Auth } from '../middlewares/auth';
 import * as DoormanController from '../controllers/doormanController';
 
 const router = Router();
 
 router.get('/', DoormanController.index);
-router.get('/doorman/new', DoormanController.newDoorman);
-router.get('/doorman/list', DoormanController.listDoorman);
-router.get('/doorman/update/:id', DoormanController.doorman);
+router.get('/doorman/new', Auth.private, DoormanController.newDoorman);
+router.get('/doorman/list', Auth.private, DoormanController.listDoorman);
+router.get('/doorman/update/:id', Auth.private, DoormanController.doorman);
 
 router.post('/postdoorman', DoormanController.postDoorman);
 router.post('/updatedoorman', DoormanController.updateDoorman);

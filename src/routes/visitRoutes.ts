@@ -1,5 +1,5 @@
 import { Router } from 'express';
-
+import { Auth } from '../middlewares/auth';
 import * as VisitController from '../controllers/visitController';
 
 const router = Router();

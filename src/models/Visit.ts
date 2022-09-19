@@ -8,8 +8,6 @@ import { Doorman } from './Doorman';
 
 export interface VisitInstance extends Model {
     id: number;
-    VisiterId: number;
-    DoormanId: number;
     arrived: Date;
     exit: Date;
 }
