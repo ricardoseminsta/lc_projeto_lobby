@@ -8,6 +8,7 @@ const router = Router();
 router.get('/user/new', UserController.newUser);
 router.get('/user/list', UserController.listUser);
 router.get('/user/login', UserController.loginUser);
+router.get('/logout', UserController.logout);
 
 router.post('/postuser', UserController.postUser);
 router.post('/loginuser', UserController.login);

@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { User } from '../models/User';
-import JWT from 'jsonwebtoken';
 import bcrypt from 'bcrypt'
 
 export const newUser = (req: Request, res: Response) => {
@@ -21,11 +20,7 @@ export const postUser = async (req: Request, res: Response) => {
 
         await newUser.save();
 
-        const token = JWT.sign(
-            { id: newUser.id, email: newUser.email },
-            process.env.JWT_SECRET_KEY as string,
-            { expiresIn: '2h' }
-        );
+
         //console.log(email, password, hash);
 
 
@@ -41,17 +36,12 @@ export const login = async (req: Request, res: Response) => {
     if (req.body.email && req.body.password) {
         let email: string = req.body.email;
         let password: string = req.body.password;
-        console.log(req.headers.authorization);
 
         const user = await User.findOne({ where: { email } });
 
         if (user && bcrypt.compareSync(password, user.password)) {
-            const token = JWT.sign(
-                { id: user.id, email: user.email },
-                process.env.JWT_SECRET_KEY as string,
-                { expiresIn: '2h' }
-            );
-
+            console.log("logou controller", req.session);
+            
             res.redirect("/user/list");
 
         } else {
@@ -63,6 +53,14 @@ export const login = async (req: Request, res: Response) => {
 
 
     }
+}
+
+export const logout = (req: Request, res: Response) => {
+    req.session.destroy(() => {
+        console.log("sessão encerrada");
+    });
+    req.session.id = 'undefined';
+    res.redirect('/');
 }
 
 export const listUser = async (req: Request, res: Response) => {

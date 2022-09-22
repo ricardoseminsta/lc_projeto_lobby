@@ -2,6 +2,7 @@ import express, { Request, Response, ErrorRequestHandler } from 'express';
 import path from 'path';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import session from 'express-session';
 import visiterRoutes from './routes/visiterRoutes';
 import doormanRoutes from './routes/doormanRoutes';
 import visitRoutes from './routes/visitRoutes';
@@ -15,6 +16,15 @@ server.use(cors());
 
 server.use(express.static(path.join(__dirname, '../public')));
 server.use(express.urlencoded({ extended: true }));
+
+server.use(session({
+    genid: function(req) {
+        return '1234' // use UUIDs for session IDs
+    },
+    secret: process.env.SECRET_KEY as string,
+    saveUninitialized: true,
+    resave: false,
+}));
 
 server.set('view engine', 'ejs');
 server.set('views', path.join(__dirname, 'views'));
